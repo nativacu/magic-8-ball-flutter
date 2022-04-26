@@ -47,7 +47,6 @@ class _BallState extends State<Ball> {
         setState(() {
           ballNumber = Random().nextInt(5) + 1;
         });
-        // Do stuff on phone shake
       },
       minimumShakeCount: 1,
       shakeSlopTimeMS: 500,
@@ -56,9 +55,22 @@ class _BallState extends State<Ball> {
     );
 
     return Center(
-      child: Container(
-        child: Image.asset('images/ball$ballNumber.png'),
-      ),
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Ask a \'Yes\' or \'No\' question and shake your phone to get the answer',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Center(child: Image.asset('images/ball$ballNumber.png')),
+      ]),
     );
   }
 }
