@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shake/shake.dart';
 
 void main() => runApp(
       MaterialApp(
@@ -35,17 +36,28 @@ class _BallState extends State<Ball> {
   int ballNumber = 1;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ShakeDetector detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        setState(() {
+          ballNumber = Random().nextInt(5) + 1;
+        });
+        // Do stuff on phone shake
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
+
     return Center(
       child: Container(
-        child: TextButton(
-          onPressed: () {
-            setState(() {
-              ballNumber = Random().nextInt(5) + 1;
-            });
-          },
-          child: Image.asset('images/ball$ballNumber.png'),
-        ),
+        child: Image.asset('images/ball$ballNumber.png'),
       ),
     );
   }
